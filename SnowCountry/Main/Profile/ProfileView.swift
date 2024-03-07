@@ -252,9 +252,6 @@ struct ProfileView: View {
                                             Text(userSettings.isMetric ? "Metric" : "Imperial")
                                         }
                                     }
-                                    .onChange(of: userSettings.isMetric) { _ in
-                                        profileViewModel.refreshStatsFormatting()
-                                    }
                                     .padding()
                                     .frame(maxWidth: (UIScreen.main.bounds.width - 20))
                                     .background(
@@ -309,7 +306,7 @@ struct ProfileView: View {
                     EditProfileView(user: user)
                 }
                 .fullScreenCover(isPresented: $showTrackHistoryList) {
-                    TrackHistoryListView(locationManager: locationManager, isMetric: $userSettings.isMetric)
+                    TrackHistoryListView(fromSocialPage: false, locationManager: locationManager, isMetric: $userSettings.isMetric)
                 }
                 
                 NavigationLink(destination: FriendsListView(isMetric: userSettings.isMetric, user: user).environmentObject(socialViewModel), isActive: $showFriendsList) {
